@@ -1,0 +1,8 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd Backend && mvn clean package -DskipTests"
+
+[deploy]
+startCommand = "cd Backend && java -jar target/task-manager-1.0.0.jar"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

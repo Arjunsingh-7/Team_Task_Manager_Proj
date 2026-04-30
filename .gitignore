@@ -61,6 +61,5 @@ application-dev.properties
 # Test files
 TEST_API_CALLS.html
 
-# Documentation (optional - remove if you want to include)
-*.md
-!README.md
+# Documentation (keep deployment guides)
+# *.md files are now included for deployment documentation
