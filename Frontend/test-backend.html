@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .info { background: #d1ecf1; border-color: #bee5eb; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover { background: #0056b3; }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Backend Connection Test</h1>
+    
+    <div class="test info">
+        <h3>Configuration</h3>
+        <p><strong>Backend URL:</strong> <span id="backendUrl">http://localhost:8082/api</span></p>
+        <p><strong>Frontend URL:</strong> <span id="frontendUrl">http://localhost:3000</span></p>
+    </div>
+
+    <div class="test">
+        <h3>Test 1: Check Backend Health</h3>
+        <button onclick="testBackend()">Test Backend Connection</button>
+        <div id="backendResult"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test 2: Test Signup Endpoint</h3>
+        <button onclick="testSignup()">Test Signup</button>
+        <div id="signupResult"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test 3: Check CORS</h3>
+        <button onclick="testCORS()">Test CORS</button>
+        <div id="corsResult"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8082/api';
+
+        async function testBackend() {
+            const result = document.getElementById('backendResult');
+            result.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(`${API_URL}/users`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.status === 403) {
+                    result.innerHTML = `
+                        <div class="success">
+                            <p>✅ <strong>Backend is running!</strong></p>
+                            <p>Status: ${response.status} (403 Forbidden is expected without auth)</p>
+                        </div>
+                    `;
+                } else if (response.ok) {
+                    const data = await response.json();
+                    result.innerHTML = `
+                        <div class="success">
+                            <p>✅ <strong>Backend is running!</strong></p>
+                            <p>Status: ${response.status}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="error">
+                            <p>⚠️ Backend responded with status: ${response.status}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="error">
+                        <p>❌ <strong>Cannot connect to backend!</strong></p>
+                        <p>Error: ${error.message}</p>
+                        <p><strong>Possible causes:</strong></p>
+                        <ul>
+                            <li>Backend is not running (run: mvn spring-boot:run)</li>
+                            <li>Backend is running on wrong port</li>
+                            <li>CORS is blocking the request</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        async function testSignup() {
+            const result = document.getElementById('signupResult');
+            result.innerHTML = '<p>Testing signup...</p>';
+            
+            const testUser = {
+                name: 'Test User',
+                email: `test${Date.now()}@example.com`,
+                password: 'password123'
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testUser)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.innerHTML = `
+                        <div class="success">
+                            <p>✅ <strong>Signup works!</strong></p>
+                            <p>Status: ${response.status}</p>
+                            <p>User created: ${testUser.email}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="error">
+                            <p>❌ Signup failed</p>
+                            <p>Status: ${response.status}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="error">
+                        <p>❌ <strong>Network Error!</strong></p>
+                        <p>Error: ${error.message}</p>
+                        <p><strong>This is the same error you're seeing in the app!</strong></p>
+                        <p><strong>Solution:</strong></p>
+                        <ul>
+                            <li>Make sure backend is running</li>
+                            <li>Check CORS configuration</li>
+                            <li>Restart frontend after creating .env.local</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        async function testCORS() {
+            const result = document.getElementById('corsResult');
+            result.innerHTML = '<p>Testing CORS...</p>';
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': 'http://localhost:3000',
+                        'Access-Control-Request-Method': 'POST',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
+                };
+                
+                if (corsHeaders['Access-Control-Allow-Origin']) {
+                    result.innerHTML = `
+                        <div class="success">
+                            <p>✅ <strong>CORS is configured correctly!</strong></p>
+                            <pre>${JSON.stringify(corsHeaders, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="error">
+                            <p>⚠️ CORS headers not found</p>
+                            <p>Status: ${response.status}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="error">
+                        <p>❌ CORS test failed</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-run first test on load
+        window.onload = () => {
+            testBackend();
+        };
+    </script>
+</body>
+</html>
