@@ -158,19 +158,7 @@ See [DEPLOY_TO_RAILWAY.md](DEPLOY_TO_RAILWAY.md) for detailed instructions.
 - Role-based access control
 - Environment variables for sensitive data
 
-## 🎨 Screenshots
 
-### Login Page
-Modern split-screen design with gradient background
-
-### Dashboard
-Real-time overview of tasks and projects
-
-### Project Board
-Kanban-style task management
-
-### Task Management
-Create and assign tasks with priorities and due dates
 
 ## 📝 Environment Variables
 
