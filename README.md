@@ -69,7 +69,7 @@ Postman Api Testing/
 
 | Method | Endpoint | Description | Screenshot |
 |--------|----------|-------------|------------|
-| POST | `/api/auth/signup` | Register new user | [View](Postman%20Api%20Testing/01-signup.png) |
+| POST | `/api/auth/signup` | Register new user | [View](blob/main/Postman%20Api%20Testing/SignUp.png) |
 | POST | `/api/auth/login` | Login & get JWT token | [View](Postman%20Api%20Testing/02-login.png) |
 
 #### 2️⃣ **Dashboard Endpoints**
