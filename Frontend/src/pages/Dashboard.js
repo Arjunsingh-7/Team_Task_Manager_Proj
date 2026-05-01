@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { Card, Badge, Avatar, Button } from '../components/ui';
+import { Avatar, Button } from '../components/ui';
 import { dashboardAPI } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
