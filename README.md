@@ -44,57 +44,99 @@ A full-stack web application for managing team projects and tasks efficiently.
 
 ## 📸 Postman API Testing
 
-Complete API testing documentation with screenshots is available in the **`Postman Api Testing/`** folder.
-
-### 📂 Testing Documentation Structure
-
-```
-Postman Api Testing/
-├── 01-signup.png          # User registration
-├── 02-login.png           # User authentication
-├── 03-dashboard.png       # Dashboard statistics
-├── 04-create-project.png  # Project creation
-├── 05-get-projects.png    # List all projects
-├── 06-create-task.png     # Task creation
-├── 07-get-tasks.png       # List project tasks
-├── 08-update-status.png   # Update task status
-└── 09-delete-task.png     # Delete task
-```
+Complete API testing with screenshots demonstrating all endpoints.
 
 ### 🧪 API Testing Guide
 
 **Base URL:** `https://team-task-manager-proj-2.onrender.com`
 
-#### 1️⃣ **Authentication Endpoints**
+---
 
-| Method | Endpoint | Description | Screenshot |
-|--------|----------|-------------|------------|
-| POST | `/api/auth/signup` | Register new user | [View](Postman%20Api%20Testing/01-signup.png) |
-| POST | `/api/auth/login` | Login & get JWT token | [View](Postman%20Api%20Testing/02-login.png) |
+### 1️⃣ **User Signup**
 
-#### 2️⃣ **Dashboard Endpoints**
+**Endpoint:** `POST /api/auth/signup`
 
-| Method | Endpoint | Auth Required | Screenshot |
-|--------|----------|---------------|------------|
-| GET | `/api/dashboard` | ✅ Yes | [View](Postman%20Api%20Testing/03-dashboard.png) |
+![Signup](Postman%20Api%20Testing/SignUp.png)
 
-#### 3️⃣ **Project Endpoints**
+---
 
-| Method | Endpoint | Description | Screenshot |
-|--------|----------|-------------|------------|
-| POST | `/api/projects` | Create new project | [View](Postman%20Api%20Testing/04-create-project.png) |
-| GET | `/api/projects` | Get all projects | [View](Postman%20Api%20Testing/05-get-projects.png) |
-| GET | `/api/projects/{id}` | Get project details | - |
-| DELETE | `/api/projects/{id}` | Delete project | - |
+### 2️⃣ **User Login**
 
-#### 4️⃣ **Task Endpoints**
+**Endpoint:** `POST /api/auth/login`
 
-| Method | Endpoint | Description | Screenshot |
-|--------|----------|-------------|------------|
-| POST | `/api/projects/{projectId}/tasks` | Create task | [View](Postman%20Api%20Testing/06-create-task.png) |
-| GET | `/api/projects/{projectId}/tasks` | Get all tasks | [View](Postman%20Api%20Testing/07-get-tasks.png) |
-| PATCH | `/api/projects/{projectId}/tasks/{taskId}/status` | Update status | [View](Postman%20Api%20Testing/08-update-status.png) |
-| DELETE | `/api/projects/{projectId}/tasks/{taskId}` | Delete task | [View](Postman%20Api%20Testing/09-delete-task.png) |
+![Login](Postman%20Api%20Testing/Login.png)
+
+---
+
+### 3️⃣ **Get Dashboard Stats**
+
+**Endpoint:** `GET /api/dashboard`  
+**Auth Required:** ✅ Yes
+
+![Dashboard](Postman%20Api%20Testing/Get%20DashBoard.png)
+
+---
+
+### 4️⃣ **Create Project**
+
+**Endpoint:** `POST /api/projects`  
+**Auth Required:** ✅ Yes
+
+![Create Project](Postman%20Api%20Testing/Create%20Project.png)
+
+---
+
+### 5️⃣ **Get All Projects**
+
+**Endpoint:** `GET /api/projects`  
+**Auth Required:** ✅ Yes
+
+![Get Projects](Postman%20Api%20Testing/Get%20All%20projects.png)
+
+---
+
+### 6️⃣ **Create Task**
+
+**Endpoint:** `POST /api/projects/{projectId}/tasks`  
+**Auth Required:** ✅ Yes
+
+![Create Task](Postman%20Api%20Testing/Create%20Task.png)
+
+---
+
+### 7️⃣ **Get All Tasks**
+
+**Endpoint:** `GET /api/projects/{projectId}/tasks`  
+**Auth Required:** ✅ Yes
+
+![Get Tasks](Postman%20Api%20Testing/Get%20All%20Tasks.png)
+
+---
+
+### 8️⃣ **Update Task Status**
+
+**Endpoint:** `PATCH /api/projects/{projectId}/tasks/{taskId}/status`  
+**Auth Required:** ✅ Yes
+
+![Update Task](Postman%20Api%20Testing/Updating%20Tasks.png)
+
+---
+
+### 9️⃣ **Delete Task**
+
+**Endpoint:** `DELETE /api/projects/{projectId}/tasks/{taskId}`  
+**Auth Required:** ✅ Yes
+
+![Delete Task](Postman%20Api%20Testing/Deleting%20Tasks.png)
+
+---
+
+### 🔟 **Delete Project**
+
+**Endpoint:** `DELETE /api/projects/{id}`  
+**Auth Required:** ✅ Yes
+
+![Delete Project](Postman%20Api%20Testing/Delete%20All%20Projects.png)
 
 ### 🔑 Authentication Flow
 
