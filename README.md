@@ -1,94 +1,155 @@
-# Team Task Manager
+# 🚀 Team Task Manager
 
-A full-stack web application for managing team projects and tasks.
+A full-stack web application for managing team projects and tasks efficiently.
 
-## Features
+---
 
-- User authentication and authorization
-- Create and manage projects
-- Assign tasks to team members
-- Track task status and priorities
-- Dashboard with project statistics
-- Role-based access control (Admin/Member)
+## 🌐 Live Demo
 
-## Technology Stack
+- 🔗 Frontend (UI): https://teamflow-manager.vercel.app/signup  
+- 🔗 Backend (API): https://team-task-manager-proj-2.onrender.com  
 
-**Backend:**
-- Java 17
-- Spring Boot 3.2.0
-- Spring Security (JWT)
-- Spring Data JPA
-- PostgreSQL
-- Maven
+---
 
-**Frontend:**
-- React 18
-- React Router
-- Axios
-- CSS3
+## ⚙️ Features
 
-## Setup Instructions
+- 🔐 User authentication & authorization (JWT)
+- 📁 Create and manage projects
+- 👥 Add/remove project members
+- ✅ Create, assign, and track tasks
+- 📊 Dashboard with statistics
+- 🛡️ Role-based access (Admin / Member)
 
-### Backend
+---
 
-1. Navigate to Backend folder
-2. Configure database in `application.properties`
-3. Run: `mvn spring-boot:run`
-4. Server starts on port 8082
+## 🧰 Technology Stack
 
-### Frontend
+### 🖥️ Backend
+- ☕ Java 17  
+- 🌱 Spring Boot 3.2.0  
+- 🔐 Spring Security (JWT)  
+- 🗄️ Spring Data JPA  
+- 🐘 PostgreSQL  
+- 📦 Maven  
+- 🚀 Deployed on Render  
 
-1. Navigate to Frontend folder
-2. Install dependencies: `npm install`
-3. Create `.env.local` with: `REACT_APP_API_URL=http://localhost:8082/api`
-4. Run: `npm start`
-5. App opens on port 3000
+---
 
-## API Endpoints
+### 🎨 Frontend
+- ⚛️ React 18  
+- 🔀 React Router  
+- 📡 Axios  
+- 🎨 CSS3  
+- 🌍 Deployed on Vercel  
 
-### Auth
-- POST `/api/auth/signup` - Register
-- POST `/api/auth/login` - Login
+---
 
-### Projects
-- GET `/api/projects` - List projects
-- POST `/api/projects` - Create project
-- GET `/api/projects/{id}` - Get project
-- PUT `/api/projects/{id}` - Update project
-- DELETE `/api/projects/{id}` - Delete project
+## 🧪 How to Check Backend is Working
 
-### Tasks
-- GET `/api/projects/{id}/tasks` - List tasks
-- POST `/api/projects/{id}/tasks` - Create task
-- PUT `/api/tasks/{id}` - Update task
-- DELETE `/api/tasks/{id}` - Delete task
+⚠️ If you open backend URL directly:
 
-### Dashboard
-- GET `/api/dashboard` - Get statistics
+👉 https://team-task-manager-proj-2.onrender.com  
 
-## Database Schema
+You may see **403 Forbidden**
 
-- **users** - User accounts
-- **projects** - Project information
-- **project_members** - Project membership
-- **tasks** - Task details
+👉 That’s NORMAL! ✅
 
-## Configuration
+The backend has no homepage — it's just an API. The 403 error is expected because:
 
-Backend environment variables:
-```
-DATABASE_URL=jdbc:postgresql://host:5432/database
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=password
-JWT_SECRET=secret
-CORS_ORIGINS=http://localhost:3000
-```
+- You are accessing root URL (`/`)
+- Spring Security blocks it
+- No UI is served from backend
 
-Frontend environment variables:
-```
-REACT_APP_API_URL=http://localhost:8082/api
-```
+---
 
-## License
+## ✅ Method 1: Test API in Browser
+
+Open:
+
+👉 https://team-task-manager-proj-2.onrender.com/api/auth/test  
+
+✔ Expected:
+- JSON response  
+- OR error (but NOT 403 root error)
+
+---
+
+## ✅ Method 2: Test using Postman
+
+### Without token:
+GET https://team-task-manager-proj-2.onrender.com/api/dashboard/stats  
+
+👉 Expected: 401 Unauthorized  
+✔ This means backend is working correctly
+
+---
+
+### With token:
+- Login first → get JWT  
+- Add in header:
+
+Authorization: Bearer <token>
+
+---
+
+## 🧱 API Endpoints
+
+### 🔐 Auth
+- POST /api/auth/signup – Register  
+- POST /api/auth/login – Login  
+
+### 📁 Projects
+- GET /api/projects  
+- POST /api/projects  
+- GET /api/projects/{id}  
+- PUT /api/projects/{id}  
+- DELETE /api/projects/{id}  
+
+### ✅ Tasks
+- GET /api/projects/{id}/tasks  
+- POST /api/projects/{id}/tasks  
+- PUT /api/tasks/{id}  
+- DELETE /api/tasks/{id}  
+
+### 📊 Dashboard
+- GET /api/dashboard  
+
+---
+
+## 🗄️ Database Schema
+
+- users  
+- projects  
+- project_members  
+- tasks  
+
+---
+
+## ⚙️ Environment Variables
+
+### 🔧 Backend
+DATABASE_URL=jdbc:postgresql://host:5432/database  
+DATABASE_USERNAME=postgres  
+DATABASE_PASSWORD=password  
+JWT_SECRET=secret  
+CORS_ORIGINS=https://teamflow-manager.vercel.app  
+
+---
+
+### 🎨 Frontend
+REACT_APP_API_URL=https://team-task-manager-proj-2.onrender.com/api  
+
+---
+
+## 🏁 Final Note
+
+- ✔ Fully functional full-stack app  
+- ✔ Backend deployed and accessible  
+- ✔ Frontend connected with live API  
+- ✔ Role-based system implemented  
+
+---
+
+## 📜 License
 
 MIT
